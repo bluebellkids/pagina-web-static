@@ -42,7 +42,7 @@ const About = () => {
               className="space-y-4"
             >
               <Image
-                src="/images/servicios.webp"
+                src="/images/BebeHidro.jpg"
                 alt="Servicios de la guardería"
                 width={1000}
                 height={500}
@@ -64,10 +64,10 @@ const About = () => {
                 <p className="text-purple-800 font-bold">Areas recreativas</p>
               </div>
               <Image
-                src="/images/actividades.webp"
+                src="/images/Hidroterapia.jpg"
                 alt="Actividades de la guardería"
                 width={1000}
-                height={700}
+                height={500}
                 className="rounded-3xl shadow-card h-64 w-full object-cover"
               />
             </motion.div>

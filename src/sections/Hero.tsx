@@ -9,14 +9,35 @@ import Link from 'next/link';
 
 const Hero = () => {
   return (
-    <section id="home" className="relative pt-24 pb-32 lg:pt-24 lg:pb-20 overflow-hidden bg-linear-gradient-to-r from-pastel-blue to-pastel-pink">
-      {/* Background Shapes */}
-      <div className="absolute top-0 right-0 -z-10 w-1/2 h-full bg-pastel-blue/30 rounded-l-[100px] hidden lg:block" />
-      <div className="absolute top-20 left-10 -z-10 w-24 h-24 bg-pastel-pink/40 rounded-full blur-2xl animate-pulse" />
-      <div className="absolute bottom-10 right-1/4 -z-10 w-32 h-32 bg-pastel-yellow/40 rounded-full blur-2xl" />
+    <section id="home" className="relative min-h-[90vh] flex items-center pt-24 pb-32 lg:pt-24 lg:pb-20 overflow-hidden">
+      {/* Video Background Container */}
+      <div className="absolute inset-0 w-full h-full overflow-hidden">
+        {/* Overlay for readability - Ayuda a que el texto blanco se lea mejor sobre el video */}
+        <div className="absolute inset-0 bg-white/40 backdrop-blur-[2px] z-10" />
+        
+        <video
+          autoPlay
+          muted
+          loop
+          playsInline
+          poster="/images/home.webp"
+          className="w-full h-full object-cover"
+        >
+          {/* Opción 1: WebM ultra optimizado (Carga súper rápido en navegadores modernos) */}
+          <source src="https://res.cloudinary.com/djulmgwoh/video/upload/q_auto/PresentacionBlueBell_abvh5k.webm" type="video/webm" />
+          
+          {/* Opción 2: Fallback a MP4 optimizado (Para Safari o navegadores antiguos) */}
+          <source src="https://res.cloudinary.com/djulmgwoh/video/upload/q_auto/PresentacionBlueBell_abvh5k.mp4" type="video/mp4" />
+          
+          Tu navegador no soporta videos.
+        </video>
+      </div>
 
-      <div className="container mx-auto px-4">
-        <div className="flex flex-col lg:flex-row items-center gap-8">
+      {/* Background Shapes (Reduced opacity to not compete with video) */}
+      <div className="absolute top-0 right-0 -z-5 w-1/2 h-full bg-pastel-blue/20 rounded-l-[100px] hidden lg:block" />
+      
+      <div className="container mx-auto px-4 relative z-20">
+        <div className="flex flex-col lg:flex-row items-center gap-12">
           {/* Content */}
           <div className="flex-1 text-center lg:text-left space-y-8">
             <motion.div
@@ -26,7 +47,7 @@ const Hero = () => {
               className="inline-flex items-center gap-2 px-4 py-2 bg-pastel-green text-green-700 rounded-full text-sm font-bold font-poppins shadow-soft"
             >
               <Sparkles size={16} />
-              <span>Inscripciones Abiertas 2026</span>
+              <span>Inscripciones Abiertas {new Date().getFullYear()}</span>
             </motion.div>
 
             <motion.h1 
@@ -42,7 +63,7 @@ const Hero = () => {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.4 }}
-              className="text-lg md:text-xl text-gray-600 max-w-2xl mx-auto lg:mx-0 leading-relaxed"
+              className="text-lg md:text-xl text-gray-700 max-w-2xl mx-auto lg:mx-0 leading-relaxed font-medium"
             >
               Ofrecemos un espacio seguro, creativo y lleno de amor para el desarrollo integral de tus pequeños. Descubre por qué somos la guardería favorita de las familias.
             </motion.p>
@@ -54,39 +75,34 @@ const Hero = () => {
               className="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-4"
             >
               <Link href="#contact">
-                <Button size="lg" className="w-full sm:w-auto">Agendar Visita</Button>
+                <Button size="lg" className="w-full sm:w-auto shadow-lg hover:scale-105 transition-transform">Agendar Visita</Button>
               </Link>
               
               <Link href="#gallery">
-                <Button variant="outline" size="lg" className="w-full sm:w-auto">Ver Galería</Button>
+                <Button variant="outline" size="lg" className="w-full sm:w-auto bg-white/50 backdrop-blur-sm">Ver Galería</Button>
               </Link>
             </motion.div>
           </div>
 
-          {/* Image */}
+          {/* Optional: Floating Card instead of full image to keep video visible */}
           <motion.div 
-            initial={{ opacity: 0, scale: 0.8, rotate: 5 }}
-            animate={{ opacity: 1, scale: 1, rotate: 0 }}
+            initial={{ opacity: 0, scale: 0.8 }}
+            animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 0.8 }}
-            className="flex-1 relative"
+            className="flex-1 hidden lg:flex justify-center"
           >
-            <div className="relative z-10 rounded-3xl overflow-hidden shadow-card border-8 border-white transform hover:scale-[1.02] transition-transform duration-500">
-              <Image
-                src="/images/home.webp"
-                alt="Logo de la guardería"
-                width={1000}
-                height={700}
-                className="w-full h-auto object-cover"
-              />
-            </div>
-            
-            {/* Floating elements */}
-            <div className="absolute z-10 -top-6 -right-6 bg-white p-4 rounded-2xl shadow-card animate-float hidden sm:block">
-              <p className="text-secondary font-bold font-poppins text-sm italic">¡Aprender es divertido!</p>
-            </div>
-            <div className="absolute z-10 -bottom-6 -left-6 bg-white p-4 rounded-2xl shadow-card animate-float delay-1000 hidden sm:block">
-              <div className="flex gap-1">
-                {[1,2,3,4,5].map(i => <div key={i} className="w-3 h-3 bg-pastel-yellow rounded-full" />)}
+            <div className="relative p-8 bg-white/30 backdrop-blur-md rounded-3xl border border-white/50 shadow-2xl max-w-md">
+              <div className="rounded-2xl overflow-hidden shadow-card border-4 border-white">
+                <Image
+                  src="/images/home.webp"
+                  alt="Bluebell Kids"
+                  width={600}
+                  height={400}
+                  className="w-full h-auto object-cover"
+                />
+              </div>
+              <div className="absolute -bottom-6 -right-6 bg-white p-4 rounded-2xl shadow-card animate-float">
+                <p className="text-secondary font-bold font-poppins text-sm italic">¡Aprender es divertido!</p>
               </div>
             </div>
           </motion.div>

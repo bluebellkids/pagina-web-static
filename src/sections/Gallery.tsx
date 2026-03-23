@@ -1,20 +1,50 @@
 'use client';
 
 import React, { useState } from 'react';
-import { motion } from 'framer-motion';
+import { motion, AnimatePresence } from 'framer-motion';
 import Modal from '../components/Modal';
+import { ChevronLeft, ChevronRight } from 'lucide-react';
+import Image from 'next/image';
 
-const images = [
-  { url: 'https://images.unsplash.com/photo-1587653263995-422546a72569?auto=format&fit=crop&q=80&w=800', title: 'Nuestra Aula Principal' },
-  { url: 'https://images.unsplash.com/photo-1540479859555-17af45c78602?auto=format&fit=crop&q=80&w=800', title: 'Hora de Juegos' },
-  { url: 'https://images.unsplash.com/photo-1516627145497-ae6968895b74?auto=format&fit=crop&q=80&w=800', title: 'Talleres Creativos' },
-  { url: 'https://images.unsplash.com/photo-1502086223501-7ea2eceaf93d?auto=format&fit=crop&q=80&w=800', title: 'Patio Recreativo' },
-  { url: 'https://images.unsplash.com/photo-1484981184820-2e84ea0af397?auto=format&fit=crop&q=80&w=800', title: 'Comedor Infantil' },
-  { url: 'https://images.unsplash.com/photo-1596464716127-f2a82984de30?auto=format&fit=crop&q=80&w=800', title: 'Actividades de Lectura' },
-];
+// Función para generar imágenes de la galería
+const generateGalleryImages = () => {
+  const baseImages = [
+    { name: 'actividades.webp', title: 'Actividades Creativas' },
+    { name: 'servicios.webp', title: 'Nuestros Servicios' },
+    { name: 'home.webp', title: 'Instalaciones Principales' },
+    { name: 'BebeHidro.jpg', title: 'Sesiones de Hidroterapia' },
+    { name: 'estimulacion.webp', title: 'Estimulación Temprana' },
+  ];
+
+  return baseImages.map(img => ({
+    url: `/images/${img.name}`,
+    title: img.title
+  }));
+};
+
+const images = generateGalleryImages();
 
 const Gallery = () => {
-  const [selectedImg, setSelectedImg] = useState<string | null>(null);
+  const [currentIndex, setCurrentIndex] = useState<number | null>(null);
+
+  const openModal = (index: number) => setCurrentIndex(index);
+  const closeModal = () => setCurrentIndex(null);
+
+  const nextImage = (e?: React.MouseEvent) => {
+    e?.stopPropagation();
+    if (currentIndex !== null) {
+      setCurrentIndex((currentIndex + 1) % images.length);
+    }
+  };
+
+  const prevImage = (e?: React.MouseEvent) => {
+    e?.stopPropagation();
+    if (currentIndex !== null) {
+      setCurrentIndex((currentIndex - 1 + images.length) % images.length);
+    }
+  };
+
+  const selectedImg = currentIndex !== null ? images[currentIndex] : null;
 
   return (
     <section id="gallery" className="py-24 bg-white">
@@ -38,14 +68,16 @@ const Gallery = () => {
               viewport={{ once: true }}
               transition={{ delay: index * 0.1 }}
               className="relative aspect-square overflow-hidden rounded-3xl cursor-pointer group"
-              onClick={() => setSelectedImg(img.url)}
+              onClick={() => openModal(index)}
             >
-              <img 
+              <Image 
                 src={img.url} 
                 alt={img.title}
-                className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+                fill
+                sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                className="object-cover transition-transform duration-500 group-hover:scale-110"
               />
-              <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
+              <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center z-10">
                 <p className="text-white font-bold font-poppins text-lg">{img.title}</p>
               </div>
             </motion.div>
@@ -54,16 +86,51 @@ const Gallery = () => {
       </div>
 
       <Modal
-        isOpen={!!selectedImg}
-        onClose={() => setSelectedImg(null)}
-        title="Galería"
+        isOpen={currentIndex !== null}
+        onClose={closeModal}
+        title={selectedImg?.title || "Galería"}
       >
-        <div className="flex flex-col items-center">
-          <img 
-            src={selectedImg || ''} 
-            alt="Imagen ampliada" 
-            className="w-full h-auto rounded-2xl shadow-card"
-          />
+        <div className="relative group flex items-center justify-center min-h-75">
+          {/* Botones de navegación sobre la imagen */}
+          <button 
+            onClick={prevImage}
+            className="absolute left-2 z-20 p-2 bg-white/80 hover:bg-white rounded-full shadow-lg transition-all text-gray-800"
+            aria-label="Imagen anterior"
+          >
+            <ChevronLeft size={24} />
+          </button>
+
+          <AnimatePresence mode="wait">
+            <motion.div
+              key={currentIndex}
+              initial={{ opacity: 0, scale: 0.95 }}
+              animate={{ opacity: 1, scale: 1 }}
+              exit={{ opacity: 0, scale: 0.95 }}
+              transition={{ duration: 0.2 }}
+              className="relative w-full h-[60vh]"
+            >
+              <Image 
+                src={selectedImg?.url || ''} 
+                alt={selectedImg?.title || 'Imagen ampliada'} 
+                fill
+                priority
+                className="object-contain rounded-2xl"
+              />
+            </motion.div>
+          </AnimatePresence>
+
+          <button 
+            onClick={nextImage}
+            className="absolute right-2 z-20 p-2 bg-white/80 hover:bg-white rounded-full shadow-lg transition-all text-gray-800"
+            aria-label="Siguiente imagen"
+          >
+            <ChevronRight size={24} />
+          </button>
+          
+          {/* Indicador de posición */}
+          <div className="absolute bottom-4 left-1/2 -translate-x-1/2 z-20 px-4 py-1 bg-black/50 backdrop-blur-sm rounded-full text-white text-xs font-bold">
+            {(currentIndex ?? 0) + 1} / {images.length}
+          </div>
         </div>
       </Modal>
     </section>
