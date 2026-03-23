@@ -1,0 +1,57 @@
+@import "tailwindcss";
+
+:root {
+  --background: #FFFFFF;
+  --foreground: #374151;
+  --font-nunito: var(--font-nunito);
+  --font-poppins: var(--font-poppins);
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  
+  --font-nunito: var(--font-nunito);
+  --font-poppins: var(--font-poppins);
+  
+  /* Pastel Palette */
+  --color-pastel-blue: #BAE6FD;
+  --color-pastel-green: #BBF7D0;
+  --color-pastel-yellow: #FEF08A;
+  --color-pastel-pink: #FBCFE8;
+  --color-pastel-purple: #E9D5FF;
+  
+  /* Primary & Secondary */
+  --color-primary: #0EA5E9; /* Un azul un poco más fuerte para botones */
+  --color-secondary: #EC4899; /* Un rosado para acentos */
+  
+  --radius-xl: 1rem;
+  --radius-2xl: 1.5rem;
+  --radius-3xl: 2rem;
+  
+  --shadow-soft: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.03);
+  --shadow-card: 0 10px 15px -3px rgba(0, 0, 0, 0.05), 0 4px 6px -2px rgba(0, 0, 0, 0.03);
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-nunito), sans-serif;
+  overflow-x: hidden;
+  scroll-behavior: smooth;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-poppins), sans-serif;
+  font-weight: 700;
+}
+
+/* Custom Utilities for Animations */
+.animate-float {
+  animation: float 3s ease-in-out infinite;
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-10px); }
+}
