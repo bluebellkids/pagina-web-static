@@ -1,36 +1,83 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Bluebell Kids 🧸✨
 
-## Getting Started
+**Bluebell Kids** es una plataforma web moderna para una guardería infantil, diseñada para ofrecer una experiencia visual mágica, segura y profesional. El sitio está enfocado en presentar los servicios educativos, instalaciones y la filosofía de cuidado integral para los más pequeños.
 
-First, run the development server:
+Donde cada día es una **aventura mágica**.
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+---
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## 🚀 Tecnologías y Versiones
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+El proyecto utiliza las últimas tecnologías del ecosistema web para garantizar rendimiento, interactividad y mantenibilidad:
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+### Core
+- **Next.js 16.1.6**: Framework de React para producción (App Router).
+- **React 19.2.3**: Biblioteca para construir interfaces de usuario.
+- **TypeScript 5**: Tipado estático para un desarrollo más robusto.
 
-## Learn More
+### Estilos y Animaciones
+- **Tailwind CSS 4.0**: Framework de CSS para diseño rápido y moderno.
+- **Framer Motion 12.3.5**: Biblioteca para animaciones fluidas y declarativas.
+- **Lucide React 0.57.7**: Set de iconos vectoriales ligeros y elegantes.
 
-To learn more about Next.js, take a look at the following resources:
+### Utilidades
+- **clsx** & **tailwind-merge**: Para la gestión dinámica de clases de CSS.
+- **PostCSS 4**: Procesamiento de CSS.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+---
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## 🎨 Características
 
-## Deploy on Vercel
+- **Diseño Responsivo**: Totalmente adaptado a móviles, tablets y escritorio.
+- **Animaciones Premium**: Transiciones suaves y elementos flotantes usando Framer Motion.
+- **Secciones Detalladas**:
+  - **Hero**: Presentación impactante con inscripciones abiertas.
+  - **Sobre Nosotros**: Historia y valores de la guardería.
+  - **Servicios**: Detalle de las actividades y cuidados ofrecidos.
+  - **Galería**: Visualización de las instalaciones y actividades.
+  - **Testimonios**: Experiencias de otras familias.
+  - **Contacto**: Formulario y datos para agendar visitas.
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+---
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## 🛠️ Instalación y Desarrollo
+
+Sigue estos pasos para ejecutar el proyecto localmente:
+
+1. **Clonar el repositorio:**
+   ```bash
+   git clone <url-del-repositorio>
+   cd bluebellkids
+   ```
+
+2. **Instalar dependencias:**
+   ```bash
+   npm install
+   ```
+
+3. **Ejecutar el servidor de desarrollo:**
+   ```bash
+   npm run dev
+   ```
+   Abre [http://localhost:3000](http://localhost:3000) en tu navegador para ver el resultado.
+
+4. **Construir para producción:**
+   ```bash
+   npm run build
+   ```
+
+---
+
+## 📁 Estructura del Proyecto
+
+- `src/app`: Rutas y layout principal (App Router).
+- `src/components`: Componentes reutilizables (Botones, Modales, Navbar, Footer).
+- `src/sections`: Secciones principales de la página de inicio.
+- `src/layouts`: Estructuras de diseño comunes.
+- `public/images`: Activos visuales y recursos multimedia.
+
+---
+
+## 📄 Licencia
+
+Este proyecto es privado. Todos los derechos reservados.
